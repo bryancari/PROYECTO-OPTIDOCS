@@ -1,5 +1,8 @@
+from typing import Optional
+
 class User:
-    def __init__(self, id, email, name, last_name, birth, permission):
+    def __init__(self, email, name, last_name, birth, permission,
+                 id: Optional [int] = None):
         self.id = id
         self.email = email
         self.name = name

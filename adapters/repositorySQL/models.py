@@ -1,13 +1,13 @@
 from django.db import models
 
-class User(models.Model):
+class UserModel(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)
     birth = models.DateField()
     permission = models.PositiveBigIntegerField()
 
-class ResultOCR(models.Model):
+class ResultOCRModel(models.Model):
     raw = models.JSONField(default=dict)
     clean = models.JSONField(default=dict)
     success = models.BooleanField(default=False)    
@@ -34,15 +34,15 @@ languages_choices = [
     ("ENG", "Inglés"),
 ]
 
-class ConfigDoc(models.Model):
+class ConfigDocModel(models.Model):
     ocr_chosen = models.CharField(max_length = 50, choices=ocr_choices)
     type_doc = models.CharField(max_length=50, choices=type_doc_choices)
     language = models.CharField(max_length=50, choices=languages_choices)
 
-class Document(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    config = models.OneToOneField(ConfigDoc, on_delete=models.CASCADE)
-    result = models.OneToOneField(ResultOCR, on_delete=models.CASCADE)
+class DocumentModel(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    config = models.OneToOneField(ConfigDocModel, on_delete=models.CASCADE)
+    result = models.OneToOneField(ResultOCRModel, on_delete=models.CASCADE)
     processed = models.BooleanField(default=False)
     doc_file = models.FileField(upload_to='documentos/')
     created_at = models.DateTimeField(auto_now_add=True)
