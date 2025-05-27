@@ -1,23 +1,25 @@
 from abc import ABC, abstractmethod
+from core.domain.entities.document import Document
+from typing import List, Optional, Any
 
-class RespositoryDoc(ABC):
+class RepositoryDoc(ABC):
 
     @abstractmethod
-    def saveDocs():
+    def saveDocs(self, document: Document) -> Document:
         pass
 
     @abstractmethod
-    def deleteDocs():
+    def deleteDocs(self, doc_id: Optional[int] = None, doc_name: Optional[str] = None) -> None:
         pass
 
     @abstractmethod
-    def filterDocs():
+    def filterDocs(self, **filters: Any) -> List[Document]:
         pass
     
     @abstractmethod
-    def listDocs():
+    def listDocs(self) -> List[Document]:
         pass
 
     @abstractmethod
-    def searchDocs():
+    def searchDocs(self, doc_id: Optional[int] = None, doc_name: Optional[str] = None) -> Optional[Document]:
         pass

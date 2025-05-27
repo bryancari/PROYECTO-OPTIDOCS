@@ -2,7 +2,7 @@ from core.domain.entities.document import Document
 from core.domain.entities.ConfigDoc import ConfigDoc
 from core.domain.entities.resultOCR import ResultOCR
 from core.domain.entities.user import User
-from adapters.repositorySQL.models import UserModel, ResultOCRModel, DocumentModel, ConfigDocModel
+from .models import UserProfile, ResultOCRModel, DocumentModel, ConfigDocModel
 
 class EntitiesMappers:
     
@@ -38,8 +38,8 @@ class EntitiesMappers:
 
 
     @staticmethod
-    def user_to_user_model(entiy: User) -> UserModel:
-        user_model = UserModel(
+    def user_to_user_model(entiy: User) -> UserProfile:
+        user_model = UserProfile(
             email = entiy.email,
             name = entiy.name,
             last_name = entiy.last_name,
@@ -53,7 +53,7 @@ class EntitiesMappers:
         return user_model
     
     @staticmethod
-    def user_model_to_user(model: UserModel) -> User:
+    def user_model_to_user(model: UserProfile) -> User:
         return User(
             id = model.id,
             email = model.email,
