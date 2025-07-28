@@ -19,6 +19,33 @@ class ResultOCRModel(models.Model):
         verbose_name = "Resultado"
         verbose_name_plural = "Resultados"
 
+class DocumentTypeModel(models.Model):
+    name = models.CharField(max_length=80, verbose_name="Tipo de documento")
+    
+    class Meta:
+        db_table = "Tipos de documentos"
+        verbose_name = "Tipo de documento"
+        verbose_name_plural = "Tipos de documentos"        
+
+class LabelFieldValue(models.Model):
+    value = models.CharField(max_length=80, verbose_name="Valor")
+
+    class Meta:
+        db_table = "Valores"
+        verbose_name = "Valor de etiqueta"
+        verbose_name_plural = "Valores de etiquetas"        
+
+class LabelFieldModel(models.Model):
+    name = models.CharField(max_length=80, verbose_name="Etiqueta")
+    value_format = models.ForeignKey(LabelFieldValue, on_delete=models.CASCADE, verbose_name="Formato de la etiqueta")
+    document_type = models.ForeignKey(DocumentTypeModel, on_delete=models.CASCADE, related_name="labels", verbose_name="Tipo de documento")
+
+    class Meta:
+        db_table = "Etiquetas"
+        verbose_name = "Etiqueta"
+        verbose_name_plural = "Etiquetas"        
+
+"""
 ocr_choices = [
     ("desconocido", "Desconocido"),
     ("Azure", "Azure AI Vision"),
@@ -38,20 +65,42 @@ languages_choices = [
     ("SPA", "Español"),
     ("ENG", "Inglés"),
 ]
+"""
+
+class OCRProvider(models.Model):
+    name = models.CharField(max_length=5, verbose_name="Servicio OCR")
+
+    class Meta:
+        db_table = "OCR_Providers"
+        verbose_name = "Servicio OCR"
+        verbose_name_plural = "Servicios OCR"
+
+class Language(models.Model):
+    code = models.CharField(max_length=10, verbose_name="Código")
+    name = models.CharField(max_length=50, verbose_name="Lenguaje")
+
+    class Meta:
+        db_table = "Lenguajes"
+        verbose_name = "Lenguaje"
+        verbose_name_plural = "Lenguajes"        
 
 class ConfigDocModel(models.Model):
-    ocr_chosen = models.CharField(max_length = 50, choices=ocr_choices, verbose_name="Opciones de OCR")
-    type_doc = models.CharField(max_length=50, choices=type_doc_choices, verbose_name="Tipos de documentos")
-    language = models.CharField(max_length=50, choices=languages_choices, verbose_name="Opciones de lenguaje")
+    #ocr_chosen = models.CharField(max_length = 50, choices=ocr_choices, verbose_name="Opciones de OCR")
+    #type_doc = models.CharField(max_length=50, choices=type_doc_choices, verbose_name="Tipos de documentos")
+    #language = models.CharField(max_length=50, choices=languages_choices, verbose_name="Opciones de lenguaje")
+
+    ocr_chosen = models.ForeignKey(OCRProvider, on_delete=models.CASCADE, verbose_name="Servicio OCR")
+    type_doc = models.ForeignKey(DocumentTypeModel, on_delete=models.CASCADE, verbose_name="Tipo de documento")
+    language = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name="Lenguaje")
 
     class Meta:
         db_table = "Configuraciones"
-        verbose_name = "Configuración"
-        verbose_name_plural = "Configuraciones"
+        verbose_name = "Configuración de documento"
+        verbose_name_plural = "Configuraciones de documentos"
 
 class DocumentModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario")
-    config = models.OneToOneField(ConfigDocModel, on_delete=models.CASCADE, verbose_name="Configuración del documento")
+    config = models.ForeignKey(ConfigDocModel, on_delete=models.CASCADE, verbose_name="Configuración del documento")
     result = models.OneToOneField(ResultOCRModel, on_delete=models.CASCADE, verbose_name="Resultado del OCR")
     processed = models.BooleanField(default=False, verbose_name="Estado actual")
     doc_file = models.FileField(upload_to='documentos/', verbose_name="Archivo", null=False)
@@ -62,27 +111,3 @@ class DocumentModel(models.Model):
         db_table = "Documentos"
         verbose_name = "Documento"
         verbose_name_plural = "Documentos"
-
-class DocumentTypeModel(models.Model):
-    name = models.CharField(max_length=80, verbose_name="Nombre del tipo de documento")
-    
-    class Meta:
-        db_table = "Nombres de tipos de documento"
-        verbose_name = "Nombre de tipo de documento"
-        verbose_name_plural = "Nombres de tipos de documentos"
-
-value_choices = [
-    ("int", "Entero"),
-    ("str", "Cadena de texto"),
-    ("datetime", "Fecha"),
-]
-
-class LabelFieldModel(models.Model):
-    name = models.CharField(max_length=80, verbose_name="Etiqueta")
-    value_format = models.CharField(max_length=80, choices=value_choices, verbose_name="Formato de la etiqueta")
-    document_type = models.ForeignKey(DocumentTypeModel, on_delete=models.CASCADE, related_name="labels")
-
-    class Meta:
-        db_table = "Etiquetas y valores"
-        verbose_name = "Etiqueta y valor"
-        verbose_name_plural = "Etiquetas y valores"
