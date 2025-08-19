@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class RespositoryDoc(ABC):
 
     @abstractmethod
@@ -17,7 +18,7 @@ class RespositoryDoc(ABC):
     @abstractmethod
     def filterDocs():
         pass
-    
+
     @abstractmethod
     def listDocs():
         pass

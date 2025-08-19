@@ -6,24 +6,30 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_interface', '0003_documenttypemodel_labelfieldmodel'),
+        ("web_interface", "0003_documenttypemodel_labelfieldmodel"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='documenttypemodel',
-            options={'verbose_name': 'Nombre de tipo de documento', 'verbose_name_plural': 'Nombres de tipos de documentos'},
+            name="documenttypemodel",
+            options={
+                "verbose_name": "Nombre de tipo de documento",
+                "verbose_name_plural": "Nombres de tipos de documentos",
+            },
         ),
         migrations.AlterModelOptions(
-            name='labelfieldmodel',
-            options={'verbose_name': 'Etiqueta y valor', 'verbose_name_plural': 'Etiquetas y valores'},
+            name="labelfieldmodel",
+            options={
+                "verbose_name": "Etiqueta y valor",
+                "verbose_name_plural": "Etiquetas y valores",
+            },
         ),
         migrations.AlterModelTable(
-            name='documenttypemodel',
-            table='Nombres de tipos de documento',
+            name="documenttypemodel",
+            table="Nombres de tipos de documento",
         ),
         migrations.AlterModelTable(
-            name='labelfieldmodel',
-            table='Etiquetas y valores',
+            name="labelfieldmodel",
+            table="Etiquetas y valores",
         ),
     ]

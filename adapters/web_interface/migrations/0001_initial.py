@@ -8,72 +8,188 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='ConfigDocModel',
+            name="ConfigDocModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ocr_chosen', models.CharField(choices=[('desconocido', 'Desconocido'), ('Azure', 'Azure AI Vision'), ('Amazon', 'Amazon Web Services')], max_length=50, verbose_name='Opciones de OCR')),
-                ('type_doc', models.CharField(choices=[('desconocido', 'Desconocido'), ('cedula', 'Cédula'), ('RIF', 'RIF'), ('ISLR', 'ISLR'), ('Factura', 'Factura')], max_length=50, verbose_name='Tipos de documentos')),
-                ('language', models.CharField(choices=[('desconocido', 'Desconocido'), ('SPA', 'Español'), ('ENG', 'Inglés')], max_length=50, verbose_name='Opciones de lenguaje')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "ocr_chosen",
+                    models.CharField(
+                        choices=[
+                            ("desconocido", "Desconocido"),
+                            ("Azure", "Azure AI Vision"),
+                            ("Amazon", "Amazon Web Services"),
+                        ],
+                        max_length=50,
+                        verbose_name="Opciones de OCR",
+                    ),
+                ),
+                (
+                    "type_doc",
+                    models.CharField(
+                        choices=[
+                            ("desconocido", "Desconocido"),
+                            ("cedula", "Cédula"),
+                            ("RIF", "RIF"),
+                            ("ISLR", "ISLR"),
+                            ("Factura", "Factura"),
+                        ],
+                        max_length=50,
+                        verbose_name="Tipos de documentos",
+                    ),
+                ),
+                (
+                    "language",
+                    models.CharField(
+                        choices=[
+                            ("desconocido", "Desconocido"),
+                            ("SPA", "Español"),
+                            ("ENG", "Inglés"),
+                        ],
+                        max_length=50,
+                        verbose_name="Opciones de lenguaje",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Configuración',
-                'verbose_name_plural': 'Configuraciones',
-                'db_table': 'Configuraciones',
+                "verbose_name": "Configuración",
+                "verbose_name_plural": "Configuraciones",
+                "db_table": "Configuraciones",
             },
         ),
         migrations.CreateModel(
-            name='ResultOCRModel',
+            name="ResultOCRModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('raw', models.JSONField(default=dict, verbose_name='Resultado crudo')),
-                ('clean', models.JSONField(default=dict, verbose_name='Resultado procesado')),
-                ('success', models.BooleanField(default=False, verbose_name='Condición del crudo')),
-                ('mistakes', models.JSONField(default=list, verbose_name='Errores')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Fecha de procesado')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("raw", models.JSONField(default=dict, verbose_name="Resultado crudo")),
+                (
+                    "clean",
+                    models.JSONField(default=dict, verbose_name="Resultado procesado"),
+                ),
+                (
+                    "success",
+                    models.BooleanField(
+                        default=False, verbose_name="Condición del crudo"
+                    ),
+                ),
+                ("mistakes", models.JSONField(default=list, verbose_name="Errores")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Fecha de procesado"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Resultado',
-                'verbose_name_plural': 'Resultados',
-                'db_table': 'Resultados',
+                "verbose_name": "Resultado",
+                "verbose_name_plural": "Resultados",
+                "db_table": "Resultados",
             },
         ),
         migrations.CreateModel(
-            name='UserModel',
+            name="UserModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email', models.EmailField(max_length=254)),
-                ('name', models.CharField(max_length=50, verbose_name='Nombre')),
-                ('last_name', models.CharField(max_length=50, verbose_name='Apellido')),
-                ('birth', models.DateField(verbose_name='Fecha de nacimiento')),
-                ('permission', models.PositiveBigIntegerField(verbose_name='Permiso')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("email", models.EmailField(max_length=254)),
+                ("name", models.CharField(max_length=50, verbose_name="Nombre")),
+                ("last_name", models.CharField(max_length=50, verbose_name="Apellido")),
+                ("birth", models.DateField(verbose_name="Fecha de nacimiento")),
+                ("permission", models.PositiveBigIntegerField(verbose_name="Permiso")),
             ],
             options={
-                'verbose_name': 'Usuario',
-                'verbose_name_plural': 'Usuarios',
-                'db_table': 'Usuarios',
+                "verbose_name": "Usuario",
+                "verbose_name_plural": "Usuarios",
+                "db_table": "Usuarios",
             },
         ),
         migrations.CreateModel(
-            name='DocumentModel',
+            name="DocumentModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('processed', models.BooleanField(default=False, verbose_name='Estado actual')),
-                ('doc_file', models.FileField(upload_to='documentos/', verbose_name='Archivo')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Fecha de registro')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Última actualización')),
-                ('config', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='web_interface.configdocmodel', verbose_name='Configuración del documento')),
-                ('result', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='web_interface.resultocrmodel', verbose_name='Resultado del OCR')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_interface.usermodel', verbose_name='Usuario')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "processed",
+                    models.BooleanField(default=False, verbose_name="Estado actual"),
+                ),
+                (
+                    "doc_file",
+                    models.FileField(upload_to="documentos/", verbose_name="Archivo"),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Fecha de registro"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Última actualización"
+                    ),
+                ),
+                (
+                    "config",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="web_interface.configdocmodel",
+                        verbose_name="Configuración del documento",
+                    ),
+                ),
+                (
+                    "result",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="web_interface.resultocrmodel",
+                        verbose_name="Resultado del OCR",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="web_interface.usermodel",
+                        verbose_name="Usuario",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Documento',
-                'verbose_name_plural': 'Documentos',
-                'db_table': 'Documentos',
+                "verbose_name": "Documento",
+                "verbose_name_plural": "Documentos",
+                "db_table": "Documentos",
             },
         ),
     ]

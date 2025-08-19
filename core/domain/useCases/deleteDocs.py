@@ -1,5 +1,6 @@
 from core.ports.repositoryDoc import RepositoryDoc
 
+
 class DeleteDocsUseCase:
     def __init__(self, repository: RepositoryDoc):
         self.repository = repository

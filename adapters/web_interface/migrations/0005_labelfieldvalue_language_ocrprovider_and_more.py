@@ -7,70 +7,114 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_interface', '0004_alter_documenttypemodel_options_and_more'),
+        ("web_interface", "0004_alter_documenttypemodel_options_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='LabelFieldValue',
+            name="LabelFieldValue",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.CharField(max_length=80, verbose_name='Valor')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.CharField(max_length=80, verbose_name="Valor")),
             ],
             options={
-                'verbose_name': 'Valor de etiqueta',
-                'verbose_name_plural': 'Valores de etiquetas',
-                'db_table': 'Valores',
+                "verbose_name": "Valor de etiqueta",
+                "verbose_name_plural": "Valores de etiquetas",
+                "db_table": "Valores",
             },
         ),
         migrations.CreateModel(
-            name='Language',
+            name="Language",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code', models.CharField(max_length=10)),
-                ('name', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("code", models.CharField(max_length=10)),
+                ("name", models.CharField(max_length=50)),
             ],
             options={
-                'verbose_name': 'Lenguaje',
-                'verbose_name_plural': 'Lenguajes',
-                'db_table': 'Lenguajes',
+                "verbose_name": "Lenguaje",
+                "verbose_name_plural": "Lenguajes",
+                "db_table": "Lenguajes",
             },
         ),
         migrations.CreateModel(
-            name='OCRProvider',
+            name="OCRProvider",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
             ],
             options={
-                'verbose_name': 'Servicio OCR',
-                'verbose_name_plural': 'Servicios OCR',
-                'db_table': 'OCR_Providers',
+                "verbose_name": "Servicio OCR",
+                "verbose_name_plural": "Servicios OCR",
+                "db_table": "OCR_Providers",
             },
         ),
         migrations.AlterField(
-            model_name='configdocmodel',
-            name='type_doc',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_interface.documenttypemodel', verbose_name='Tipo de documento'),
+            model_name="configdocmodel",
+            name="type_doc",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="web_interface.documenttypemodel",
+                verbose_name="Tipo de documento",
+            ),
         ),
         migrations.AlterField(
-            model_name='documentmodel',
-            name='config',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_interface.configdocmodel', verbose_name='Configuración del documento'),
+            model_name="documentmodel",
+            name="config",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="web_interface.configdocmodel",
+                verbose_name="Configuración del documento",
+            ),
         ),
         migrations.AlterField(
-            model_name='labelfieldmodel',
-            name='value_format',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_interface.labelfieldvalue', verbose_name='Formato de la etiqueta'),
+            model_name="labelfieldmodel",
+            name="value_format",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="web_interface.labelfieldvalue",
+                verbose_name="Formato de la etiqueta",
+            ),
         ),
         migrations.AlterField(
-            model_name='configdocmodel',
-            name='language',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_interface.language', verbose_name='Lenguaje'),
+            model_name="configdocmodel",
+            name="language",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="web_interface.language",
+                verbose_name="Lenguaje",
+            ),
         ),
         migrations.AlterField(
-            model_name='configdocmodel',
-            name='ocr_chosen',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_interface.ocrprovider', verbose_name='Servicio OCR'),
+            model_name="configdocmodel",
+            name="ocr_chosen",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="web_interface.ocrprovider",
+                verbose_name="Servicio OCR",
+            ),
         ),
     ]

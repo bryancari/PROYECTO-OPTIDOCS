@@ -7,24 +7,63 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_interface', '0002_alter_documentmodel_user_userprofile_and_more'),
+        ("web_interface", "0002_alter_documentmodel_user_userprofile_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DocumentTypeModel',
+            name="DocumentTypeModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=80, verbose_name='Nombre del tipo de documento')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=80, verbose_name="Nombre del tipo de documento"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='LabelFieldModel',
+            name="LabelFieldModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=80, verbose_name='Etiqueta')),
-                ('value_format', models.CharField(choices=[('int', 'Entero'), ('str', 'Cadena de texto'), ('datetime', 'Fecha')], max_length=80, verbose_name='Formato de la etiqueta')),
-                ('document_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='labels', to='web_interface.documenttypemodel')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=80, verbose_name="Etiqueta")),
+                (
+                    "value_format",
+                    models.CharField(
+                        choices=[
+                            ("int", "Entero"),
+                            ("str", "Cadena de texto"),
+                            ("datetime", "Fecha"),
+                        ],
+                        max_length=80,
+                        verbose_name="Formato de la etiqueta",
+                    ),
+                ),
+                (
+                    "document_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="labels",
+                        to="web_interface.documenttypemodel",
+                    ),
+                ),
             ],
         ),
     ]

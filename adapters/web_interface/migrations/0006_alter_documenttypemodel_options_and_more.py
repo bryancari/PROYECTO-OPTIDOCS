@@ -7,41 +7,49 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_interface', '0005_labelfieldvalue_language_ocrprovider_and_more'),
+        ("web_interface", "0005_labelfieldvalue_language_ocrprovider_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='documenttypemodel',
-            options={'verbose_name': 'Tipo de documento', 'verbose_name_plural': 'Tipos de documentos'},
+            name="documenttypemodel",
+            options={
+                "verbose_name": "Tipo de documento",
+                "verbose_name_plural": "Tipos de documentos",
+            },
         ),
         migrations.AlterField(
-            model_name='documenttypemodel',
-            name='name',
-            field=models.CharField(max_length=80, verbose_name='Tipo de documento'),
+            model_name="documenttypemodel",
+            name="name",
+            field=models.CharField(max_length=80, verbose_name="Tipo de documento"),
         ),
         migrations.AlterField(
-            model_name='labelfieldmodel',
-            name='document_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='labels', to='web_interface.documenttypemodel', verbose_name='Tipo de documento'),
+            model_name="labelfieldmodel",
+            name="document_type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="labels",
+                to="web_interface.documenttypemodel",
+                verbose_name="Tipo de documento",
+            ),
         ),
         migrations.AlterField(
-            model_name='language',
-            name='code',
-            field=models.CharField(max_length=10, verbose_name='Código'),
+            model_name="language",
+            name="code",
+            field=models.CharField(max_length=10, verbose_name="Código"),
         ),
         migrations.AlterField(
-            model_name='language',
-            name='name',
-            field=models.CharField(max_length=50, verbose_name='Lenguaje'),
+            model_name="language",
+            name="name",
+            field=models.CharField(max_length=50, verbose_name="Lenguaje"),
         ),
         migrations.AlterField(
-            model_name='ocrprovider',
-            name='name',
-            field=models.CharField(max_length=5, verbose_name='Servicio OCR'),
+            model_name="ocrprovider",
+            name="name",
+            field=models.CharField(max_length=5, verbose_name="Servicio OCR"),
         ),
         migrations.AlterModelTable(
-            name='documenttypemodel',
-            table='Tipos de documentos',
+            name="documenttypemodel",
+            table="Tipos de documentos",
         ),
     ]
