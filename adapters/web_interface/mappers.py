@@ -6,7 +6,6 @@ from .models import UserProfile, ResultOCRModel, DocumentModel, ConfigDocModel
 
 
 class EntitiesMappers:
-
     @staticmethod
     def document_to_document_model(entity: Document) -> DocumentModel:
         doc_model = DocumentModel(

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("web_interface", "0006_alter_documenttypemodel_options_and_more"),
     ]

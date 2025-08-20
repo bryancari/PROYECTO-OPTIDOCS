@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("web_interface", "0002_alter_documentmodel_user_userprofile_and_more"),
     ]

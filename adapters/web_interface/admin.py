@@ -105,7 +105,6 @@ class DocumentAdmin(admin.ModelAdmin):
     procesar_documentos.short_description = "Procesar documentos con OCR"
 
     def save_model(self, request, obj, form, change):
-
         if not obj.result_id:
             result = ResultOCRModel.objects.create()
             obj.result = result

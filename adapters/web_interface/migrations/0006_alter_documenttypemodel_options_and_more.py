@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("web_interface", "0005_labelfieldvalue_language_ocrprovider_and_more"),
     ]

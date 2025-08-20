@@ -13,9 +13,7 @@ from django.contrib.auth.models import User
 
 
 class TestMappers(TestCase):
-
     def setUp(self):
-
         self.user = User.objects.create(username="testuser")
         self.language = Language.objects.create(code="es", name="Español")
         self.ocr = OCRProvider.objects.create(name="tesser")
